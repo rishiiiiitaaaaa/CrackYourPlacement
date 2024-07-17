@@ -1,0 +1,19 @@
+class Solution {
+public:
+    vector<int> findDuplicates(vector<int>& nums) {
+        int n = nums.size();
+        vector<int> ans;
+
+        unordered_map<int, int> alpha;
+
+        for(auto a : nums){
+            alpha[a]++;
+        }
+        for(auto b : alpha){
+            if(b.second == 2){
+                ans.push_back(b.first);
+            }
+        }
+        return ans;
+    }
+};
