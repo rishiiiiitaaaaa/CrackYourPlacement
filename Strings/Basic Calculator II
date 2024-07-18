@@ -1,0 +1,46 @@
+class Solution {
+public:
+    int calculate(string s) {
+        int num=0;
+        vector<int> a;
+        vector<char> c;
+        for(int i=0;i<s.size();i++){
+            if(isdigit(s[i])){
+                num=num*10+(s[i]-'0');
+            }
+            if((!isdigit(s[i]) && s[i]!=' ') || (i==s.size()-1)){
+                a.push_back(num);
+                num=0;
+            }
+            if(s[i]=='+' || s[i]=='-' || s[i]=='*' || s[i]=='/'){
+                c.push_back(s[i]);
+            }
+        }
+        stack<int> st;
+        st.push(a[0]);
+        for(int i=1,j=0;i<a.size();i++,j++){
+            if(c[j]=='+'){
+                st.push(a[i]);
+            }
+            else if(c[j]=='-'){
+                st.push(-a[i]);
+            }
+            else if(c[j]=='*'){
+                int n=st.top()*a[i];
+                st.pop();
+                st.push(n);
+            }
+            else{
+                int n=st.top()/a[i];
+                st.pop();
+                st.push(n);
+            }
+        }
+        int ans=0;
+        while(!st.empty()){
+            ans+=st.top();
+            st.pop();
+        }
+        return ans;
+    }
+};
